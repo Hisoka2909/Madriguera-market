@@ -26,6 +26,15 @@ class Pedido:
         if self.id_usuario is not None and self.id <= 0:
             raise ErrorValidacion("El ID de usuario debe ser un entero positivo OnO")
 
+    def editar_datos(self, carrito: Optional[dict], estado: Optional[str]) -> None:
+        if not carrito:
+            carrito = self.carrito
+        if not estado:
+            estado = self.estado
+
+        self.carrito = carrito
+        self.estado = estado
+
     def to_dict(self) -> dict:
         return {
             "id": self.id,
