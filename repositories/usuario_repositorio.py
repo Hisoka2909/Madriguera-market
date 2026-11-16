@@ -43,7 +43,7 @@ class RepositorioUsuario(Repositorio):
         reg = self._buffer[clave]
         reg["estado"] = "Inactivo"
         self._buffer[clave] = reg
-        self._guardar
+        self._guardar()
         return True
 
     def existe_email(self, email: str, excluir_id: Optional[int] = None) -> bool:
