@@ -50,7 +50,7 @@ class RepositorioPedido(Repositorio):
         reg = self._buffer[clave]
         reg["estado"] = "Cancelado"
         self._buffer[clave] = reg
-        self._guardar
+        self._guardar()
         return True
 
     def validar_inventario(self, carrito: dict) -> bool:
