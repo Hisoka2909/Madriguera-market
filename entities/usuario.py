@@ -16,7 +16,7 @@ class Usuario:
     direccion: str
     estado: str
 
-    def __post__init__(self):
+    def __post_init__(self):
         self.nombre = (self.nombre or "").strip()
         self.direccion = (self.direccion or "").strip()
 
