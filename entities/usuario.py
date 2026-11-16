@@ -22,6 +22,12 @@ class Usuario:
 
         if not self.nombre:
             raise ErrorValidacion("El nombre es obligatorio")
+        if not self.email:
+            raise ErrorValidacion("El email es obligatorio")
+        if not self.documento:
+            raise ErrorValidacion("El documento es obligatorio")
+        if not self.direccion:
+            raise ErrorValidacion("La direccion es obligatoria")
         if len(self.nombre) > 100:
             raise ErrorValidacion("El nombre no puede superar los 100 caracteres OnO")
         if len(self.documento) > 16:

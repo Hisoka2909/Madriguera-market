@@ -26,15 +26,15 @@ class RepositorioUsuario(Repositorio):
     def obtener_todos(self) -> list[Usuario]:
         return [Usuario.from_dict(datos) for datos in self._buffer.values()]
 
-    def actualizar(self, entidad: Usuario) -> Usuario:
-        clave = str(entidad.id)
+    def actualizar(self, usuario: Usuario) -> Usuario:
+        clave = str(usuario.id)
         if clave not in self._buffer:
             raise KeyError(
                 f"No se puede actualizar el usuario con ID {clave} porque no existe UnU"
             )
-        self._buffer[clave] = entidad.to_dict()
+        self._buffer[clave] = usuario.to_dict()
         self._guardar()
-        return entidad
+        return usuario
 
     def eliminar(self, id: int) -> bool:
         clave = str(id)

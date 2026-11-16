@@ -4,6 +4,7 @@ from dataclasses import replace
 
 from entities.producto import Pedido
 from repositories.base import Repositorio
+from producto_repositorio import ProductoRepositorio
 
 
 class RepositorioPedido(Repositorio):
@@ -51,3 +52,12 @@ class RepositorioPedido(Repositorio):
         self._buffer[clave] = reg
         self._guardar
         return True
+
+    def validar_inventario(self, carrito: dict) -> bool:
+        producto_repo = ProductoRepositorio("./data/product_data.json")
+        producto_buffer = producto_repo.get_buffer()
+        return any(
+            int(datos["cantidad"]) < int(carrito["cantidad"])
+            for datos in producto_buffer[f"{id}"]
+            for id in carrito
+        )

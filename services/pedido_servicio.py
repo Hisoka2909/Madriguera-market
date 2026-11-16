@@ -1,9 +1,6 @@
 """Logica de negocio del CRUD de Pedido."""
 
-from entities.excepciones import (
-    ErrorValidacion,
-    PedidoNoEncontrado,
-)
+from entities.excepciones import ErrorValidacion, PedidoNoEncontrado, ProductoAgotado
 from entities.usuario import Pedido
 
 CAMPOS_EDITABLES = {
@@ -17,8 +14,14 @@ class PedidoService:
     def __init__(self, repositorio):
         self._repo = repositorio
 
-    def crear(self, id_usuario, carrito, estado="Activo"):
+    def crear(self, id_usuario: int, carrito: dict, estado="Activo"):
         pedido = Pedido(id_usuario=id_usuario, carrito=carrito, estado=estado)
+
+        if self._repo.validar_inventario(carrito):
+            raise ProductoAgotado(
+                f"Uno de los productos elegidos no tiene suficientes existencias UnU"
+            )
+
         return self._repo.crear(pedido)
 
     def obtener(self, id: int) -> Pedido:
@@ -28,7 +31,7 @@ class PedidoService:
         return pedido
 
     def obtener_por_usuario(self, id_usuario: int) -> list[Pedido]:
-        return self._repo.obtener_por_usuario()
+        return self._repo.obtener_por_usuario(id_usuario)
 
     def listar(self) -> list[Pedido]:
         return self._repo.obtener_todos()

@@ -40,3 +40,6 @@ class ProductoRepositorio(Repositorio):
             datos["nombre"].lower() == nombre and datos["id"] != excluir_id
             for datos in self._buffer.values()
         )
+
+    def get_buffer(self) -> dict[str, dict]:
+        return self._buffer

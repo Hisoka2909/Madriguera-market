@@ -13,6 +13,10 @@ class ProductoDuplicado(ValueError):
     """Se lanza cuando ya existe un producto con el mismo nombre."""
 
 
+class ProductoAgotado(ValueError):
+    """Se lanza cuando un producto no tiene suficientes existencias al realizar un pedido OnO"""
+
+
 class UsuarioDuplicado(ValueError):
     """Se lanza cuando ya existe un usuario con el mismo correo electrónico o documento. 7-7"""
 
