@@ -1,4 +1,4 @@
-"""Entidad Producto de Madriguera Market (contenido apto para todo publico)."""
+"""Entidad Producto de Madriguera Market (contenido apto para todo publico)"""
 
 from dataclasses import dataclass, field
 from datetime import date
