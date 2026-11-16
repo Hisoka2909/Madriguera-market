@@ -18,7 +18,7 @@ class PruebasProductoServicio(unittest.TestCase):
     def setUp(self):
         carpeta = tempfile.TemporaryDirectory()
         self.addCleanup(carpeta.cleanup)
-        self.ruta = os.path.join(carpeta.name, "product_data.json")
+        self.ruta = os.path.join(carpeta.name, "./data/product_data.json")
         self.servicio = ProductoServicio(ProductoRepositorio(self.ruta))
 
     def _crear_orejas(self, **extra):
@@ -32,7 +32,7 @@ class PruebasProductoServicio(unittest.TestCase):
         datos.update(extra)
         return self.servicio.crear(**datos)
 
-    # CREAR 
+    # CREAR
     def test_crear_exitoso_asigna_id(self):
         producto = self._crear_orejas()
         self.assertEqual(producto.id, 1)
@@ -46,6 +46,7 @@ class PruebasProductoServicio(unittest.TestCase):
         self._crear_orejas()
         with self.assertRaises(ProductoDuplicado):
             self._crear_orejas(nombre="orejas de ZORRO")
+
     # LEER
     def test_obtener_exitoso(self):
         creado = self._crear_orejas()
@@ -63,7 +64,7 @@ class PruebasProductoServicio(unittest.TestCase):
     def test_listar_vacio(self):
         self.assertEqual(self.servicio.listar(), [])
 
-    # ACTUALIZAR 
+    # ACTUALIZAR
     def test_actualizar_exitoso(self):
         creado = self._crear_orejas()
         actualizado = self.servicio.actualizar(creado.id, precio=40000, cantidad=3)
@@ -91,7 +92,7 @@ class PruebasProductoServicio(unittest.TestCase):
         with self.assertRaises(ProductoDuplicado):
             self.servicio.actualizar(otro.id, nombre="Orejas de zorro")
 
-    #  ELIMINAR 
+    #  ELIMINAR
     def test_eliminar_exitoso(self):
         creado = self._crear_orejas()
         self.servicio.eliminar(creado.id)
