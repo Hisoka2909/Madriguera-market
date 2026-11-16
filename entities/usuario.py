@@ -8,7 +8,7 @@ from entities.excepciones import ErrorValidacion
 
 @dataclass
 class Usuario:
-    id: int
+    id: Optional[int] = None
     nombre: str
     email: str
     documento: str

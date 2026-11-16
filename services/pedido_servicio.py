@@ -1,7 +1,7 @@
 """Logica de negocio del CRUD de Pedido."""
 
 from entities.excepciones import ErrorValidacion, PedidoNoEncontrado, ProductoAgotado
-from entities.usuario import Pedido
+from entities.pedido import Pedido
 
 CAMPOS_EDITABLES = {
     "carrito",
@@ -42,7 +42,11 @@ class PedidoService:
         invalidos = set(cambios) - CAMPOS_EDITABLES
         if invalidos:
             raise ErrorValidacion(
-                f"Campos no editables TwT: {', '.join(sorted(invalidos))}"
+                "Campos no editables TwT: {', '.join(sorted(invalidos))}"
+            )
+        if self._repo.validar_inventario(cambios["carrito"]):
+            raise ProductoAgotado(
+                f"Uno de los productos elegidos no tiene suficientes existencias UnU"
             )
 
         datos = {**actual.to_dict(), **cambios}

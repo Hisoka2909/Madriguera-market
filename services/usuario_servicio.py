@@ -30,11 +30,11 @@ class UsuarioServicio:
             direccion=direccion,
             estado=estado,
         )
-        if self._repo.existe_email():
+        if self._repo.existe_email(usuario.email):
             raise UsuarioDuplicado(
                 f"Ya existe un usuario con el correo '{usuario.email}' UnU"
             )
-        if self._repo.existe_documento():
+        if self._repo.existe_documento(usuario.documento):
             raise UsuarioDuplicado(
                 f"Ya existe un usuario con el documento '{usuario.documento}' OnO"
             )
@@ -65,10 +65,7 @@ class UsuarioServicio:
             raise UsuarioDuplicado(
                 f"Ya existe un usuario con ese email OnO: '{actualizado.email}'"
             )
-        if self._repo.existe_documento(actualizado.documento, excluir_id=id):
-            raise UsuarioDuplicado(
-                f"Ya existe un usuario con ese documento OnO: '{actualizado.documento}'"
-            )
+
         return self._repo.actualizar(actualizado)
 
     def eliminar(self, id: int) -> None:

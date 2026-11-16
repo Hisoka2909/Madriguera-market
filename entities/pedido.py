@@ -1,4 +1,4 @@
-"""Entidad Usuario de Madriguera Market (contenido apto para todo publico UwU)."""
+"""Entidad Pedido de Madriguera Market (contenido apto para todo publico UwU)."""
 
 from dataclasses import dataclass, field
 from datetime import date
@@ -9,7 +9,7 @@ from entities.excepciones import ErrorValidacion
 
 @dataclass
 class Pedido:
-    id: str
+    id: Optional[int] = None
     id_usuario: int
     carrito: dict
     estado: str
@@ -17,13 +17,9 @@ class Pedido:
     def __post_init__(self):
         if not self.estado:
             raise ErrorValidacion("El estado es obligatorio")
-        if len(self.nombre) > 100:
-            raise ErrorValidacion("El estado no puede superar los 15 caracteres OnO")
-        if len(self.direccion) > 100:
-            raise ErrorValidacion(
-                "La dirección no puede superar los 100 caracteres OnO"
-            )
-        if self.id_usuario is not None and self.id <= 0:
+        if self.carrito is None:
+            raise ErrorValidacion("El carrito no puede estar vacío OnO")
+        if self.id_usuario is not None and self.id_usuario <= 0:
             raise ErrorValidacion("El ID de usuario debe ser un entero positivo OnO")
 
     def editar_datos(self, carrito: Optional[dict], estado: Optional[str]) -> None:
