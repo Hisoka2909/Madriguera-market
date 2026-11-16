@@ -35,42 +35,6 @@ class Usuario:
         if self.id is not None and self.id <= 0:
             raise ErrorValidacion("El ID debe ser un entero positivo")
 
-    def editar_datos(
-        self,
-        nombre: Optional[str],
-        email: Optional[str],
-        telefono: Optional[str],
-        direccion: Optional[str],
-        estado: Optional[str],
-    ) -> None:
-        if not nombre:
-            nombre = self.nombre
-        if not email:
-            email = self.email
-        if not telefono:
-            telefono = self.telefono
-        if not direccion:
-            direccion = self.direccion
-        if not estado:
-            estado = self.estado
-
-        if len(self.nombre) > 100:
-            raise ErrorValidacion("El nombre no puede superar los 100 caracteres OnO")
-        if len(self.documento) > 16:
-            raise ErrorValidacion("El documento no puede superar los 16 caracteres OnO")
-        if len(self.telefono) > 20:
-            raise ErrorValidacion("El telefono no puede superar los 20 caracteres OnO")
-        if len(self.direccion) > 100:
-            raise ErrorValidacion(
-                "La dirección no puede superar los 100 caracteres OnO"
-            )
-
-        self.nombre = nombre
-        self.email = email
-        self.telefono = telefono
-        self.direccion = direccion
-        self.estado = estado
-
     def to_dict(self) -> dict:
         return {
             "id": self.id,
